@@ -11,6 +11,6 @@ import (
 // gigasecond.
 func AddGigasecond(t time.Time) time.Time {
 	start := time.Date(t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute(), t.Second(), int(0), time.UTC)
-	afterTenSeconds := start.Add(time.Second * 1000000000)
-	return afterTenSeconds
+	afterGigaSecond := start.Add(time.Second * 1000000000)
+	return afterGigaSecond
 }
