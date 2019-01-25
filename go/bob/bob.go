@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Hey provides responses to remarks.
+// Hey is the active function.
 func Hey(remark string) string {
 	switch {
 	case MatchNumber(remark) && strings.HasSuffix(remark, "?"):
