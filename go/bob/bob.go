@@ -1,32 +1,43 @@
-// Package bob differentiates various inputs to output specific responses.
+// Taken from oneKelvinSmith's solution, sans Remark struct and newRemark
+// function.
 package bob
 
 import (
-	"regexp"
 	"strings"
+	"unicode"
 )
 
-// Hey is the active function.
+// Returns responses to remarks.
 func Hey(remark string) string {
+	r := strings.TrimSpace(remark)
 	switch {
-	case MatchNumber(remark) && strings.HasSuffix(remark, "?"):
-		return "Sure."
-	case MatchNumber(remark) && strings.Contains(remark, "a"):
-		return "Whatever."
-	case MatchNumber(remark) && remark == strings.ToUpper(remark):
-		return "Whoa, chill out!"
-	case remark == strings.ToUpper(remark) && strings.HasSuffix(remark, "?"):
+	case Silent(r):
+		return "Fine. Be that way!"
+	case Yell_Question(r):
 		return "Calm down, I know what I'm doing!"
-	case strings.HasSuffix(remark, "?"):
-		return "Sure."
-	case remark == strings.ToUpper(remark):
+	case Yell(r):
 		return "Whoa, chill out!"
+	case Question(r):
+		return "Sure."
 	default:
 		return "Whatever."
 	}
 }
 
-func MatchNumber(s string) bool {
-	matched, _ := regexp.MatchString(("[\\d]"), s)
-	return matched
+func Silent(remark string) bool {
+	return remark == ""
+}
+
+func Yell(remark string) bool {
+	hasLetters := strings.IndexFunc(remark, unicode.IsLetter) >= 0
+	isUppercased := strings.ToUpper(remark) == remark
+	return hasLetters && isUppercased
+}
+
+func Question(remark string) bool {
+	return strings.HasSuffix(remark, "?")
+}
+
+func Yell_Question(remark string) bool {
+	return Yell(remark) && Question(remark)
 }
