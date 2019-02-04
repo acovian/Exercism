@@ -1,8 +1,9 @@
+// Package raindrops contains convert function.
 package raindrops
 
 import "strconv"
 
-// Converts numbers to strings
+// Convert converts numbers to strings.
 func Convert(number int) string {
 	raindrop := ""
 	if number%3 == 0 || number%5 == 0 || number%7 == 0 {
